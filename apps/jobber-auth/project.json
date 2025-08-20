@@ -6,26 +6,18 @@
   "tags": [],
   "targets": {
     "build": {
-      "dependsOn": ["generate-types"],
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "webpack-cli build",
-        "args": ["--node-env=production"]
-      },
-      "configurations": {
-        "development": {
-          "args": ["--node-env=development"]
-        }
-      }
+      "dependsOn": ["generate-types"]
+    },
+    "test": {
+      "dependsOn": ["generate-types"]
     },
     "serve": {
-      "continuous": true,
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
       "dependsOn": ["build"],
       "options": {
         "buildTarget": "jobber-auth:build",
-        "runBuildTargetDependencies": false
+        "runBuildTargetDependencies": true
       },
       "configurations": {
         "development": {
@@ -48,11 +40,6 @@
       "command": "prisma migrate dev",
       "options": {
         "cwd": "apps/jobber-auth"
-      }
-    },
-    "test": {
-      "options": {
-        "passWithNoTests": true
       }
     }
   }
